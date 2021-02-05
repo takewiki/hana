@@ -166,6 +166,7 @@ hana_upload_paging <- function(var_hana_conn=hana_conn(),data,table_name,page_co
 #' @examples
 #' hana_syncData()
 hana_syncData <- function(var_hana_conn=hana_conn(),
+                          var_sql_conn,
                           sql_str,
                           table_name_src,
                           table_name_target,
@@ -175,7 +176,7 @@ hana_syncData <- function(var_hana_conn=hana_conn(),
                           sleep_second=3
                           ) {
   #获取整表数量
-  table_count <- hana_tableCount(var_hana_conn = var_hana_conn,table_name = table_name_src)
+  table_count <- sqlr::sql_tableCount(var_sql_conn,table_name = table_name_src)
   if (table_count >0){
      #计算查询批次
      page_info_query <- tsdo::paging_setting(table_count,query_pageCount)
@@ -184,7 +185,7 @@ hana_syncData <- function(var_hana_conn=hana_conn(),
        from <- page_info_query$FStart[query_index]
        to <- page_info_query$FEnd[query_index]
        #获取每一次查询数据
-       data_query<- hana_select_paging(var_hana_conn = var_hana_conn,sql_str = sql_str,page_by = page_by,from = from,to = to)
+       data_query<- sqlr::sql_select_paging(conn = var_sql_conn,sql_str = sql_str,page_by = page_by,from = from,to = to)
        #针对查询的数据进行写入
        hana_upload_paging(var_hana_conn = var_hana_conn,data = data_query,table_name =table_name_target,page_count = upload_pageCount,sleep_second =  sleep_second)
 })

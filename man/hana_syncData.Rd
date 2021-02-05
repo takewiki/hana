@@ -6,6 +6,7 @@
 \usage{
 hana_syncData(
   var_hana_conn = hana_conn(),
+  var_sql_conn,
   sql_str,
   table_name_src,
   table_name_target,
