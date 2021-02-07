@@ -103,6 +103,31 @@ hana_tableCount <- function(var_hana_conn=hana_conn(),table_name) {
 }
 
 
+#' hana写入数据库
+#'
+#' @param var_hana_conn 连接
+#' @param table_name 表名
+#' @param r_object 对话
+#' @param append 是否附加
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' hana_writeTable()
+hana_writeTable <- function(var_hana_conn=hana_conn(),table_name,r_object,append=FALSE){
+
+  if (append == FALSE){
+    res<- dbWriteTable(var_hana_conn, table_name, r_object)
+  }else{
+    res<- dbWriteTable(var_hana_conn, table_name, r_object,append=T, row.names=F, overwrite=F)
+  }
+
+  return(res)
+
+}
+
+
 
 #' 分页查询
 #'
