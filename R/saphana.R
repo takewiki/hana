@@ -65,6 +65,23 @@ hana_select <- function(var_hana_conn=hana_conn(),sql_str) {
 
 }
 
+
+#' 测试数据数据
+#'
+#' @param var_hana_conn 连接
+#' @param sql_str 字符串
+#'
+#' @return 返回值
+#' @export
+#'
+#' @examples
+#' hana_update()
+hana_update <- function(var_hana_conn=hana_conn(),sql_str) {
+
+  RJDBC::dbSendUpdate(conn,sql_str);
+
+}
+
 #' 返回表的行数
 #'
 #' @param var_hana_conn  连接
