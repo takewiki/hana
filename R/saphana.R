@@ -78,7 +78,7 @@ hana_select <- function(var_hana_conn=hana_conn(),sql_str) {
 #' hana_update()
 hana_update <- function(var_hana_conn=hana_conn(),sql_str) {
 
-  RJDBC::dbSendUpdate(conn,sql_str);
+  RJDBC::dbSendUpdate(var_hana_conn,sql_str);
 
 }
 
